@@ -15,10 +15,19 @@ url = "https://www.ris.gov.tw/apply/captcha/image?CAPTCHA_KEY=" + key
 time =  str(int((time.time())*100)) + str(randint(0,9))
 url += "&time=" + time
 
-res = rs.get(url, headers={'referer': 'https://www.ris.gov.tw/id_card/'}, stream = True, verify =False)
+res = rs.get(url, headers={'referer': 'https://www.ris.gov.tw/id_card/'})
+with open('check.jpg', 'wb') as jpeg_file:
+    jpeg_file.write(res.content)
 
-f= open('check.png','wb')
-shutil.copyfileobj(res.raw,f)
-f.close()
-Image('check.png')
 
+
+data = {
+captchaKey: "bf0426b551fc4157bb7cc8da87f5a978",
+idnum: "A123124141",
+applyTWY: "105",
+applyMM:"2",
+applyDD:"3",
+siteId:"10001",
+applyReason:"2",
+captchaInput:"6D83S"
+}
